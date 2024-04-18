@@ -37,13 +37,15 @@ float ypr[3];           // [yaw, pitch, roll]   yaw/pitch/roll container and gra
 
 volatile bool mpuInterrupt = false;     // indicates whether MPU interrupt pin has gone high
 
-void conditionalPrint(const char* msg) {
+template<typename T>
+void conditionalPrint(T msg) {
 #ifdef PRINT
   Serial.print(msg);
 #endif
 }
 
-void conditionalPrintln(const char* msg) {
+template<typename T>
+void conditionalPrintln(T msg) {
 #ifdef PRINT
   Serial.println(msg);
 #endif
@@ -120,6 +122,7 @@ void enableMPU() {
 void setupMPU6050() {
   initializeMPU();
   setMPUOffsets();
+  enableMPU();
   // configure LED for output
   pinMode(LED_PIN, OUTPUT);
 }

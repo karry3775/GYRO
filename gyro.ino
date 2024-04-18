@@ -24,6 +24,8 @@ const double PWM_REVERSE_MAX = -PWM_FORWARD_MAX;
 #define MAX_PITCH_FORWARD MAX_PITCH + SETPOINT
 #define MAX_PITCH_REVERSE -MAX_PITCH + SETPOINT
 
+#define MIN_INIT_GYRO_READS 100
+
 double pitch = 0;
 double pwm = 0.0;
 
@@ -91,7 +93,7 @@ void loop() {
   int ret_val = updateAttitude(attitude);
   if (ret_val == 0) {
     numGYROreads += 1;
-    if (numGYROreads < 500) {
+    if (numGYROreads < MIN_INIT_GYRO_READS) {
       return;
     }
     // Update pitch
